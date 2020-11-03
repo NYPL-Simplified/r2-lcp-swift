@@ -29,13 +29,7 @@ func makeLicenseContainer(for publication: URL, mimetypes: [String] = []) throws
     case .lcpProtectedPDF, .lcpProtectedAudiobook, .readiumAudiobook, .readiumWebPub, .divina:
         return ReadiumLicenseContainer(path: publication)
     case .epub:
-        // If file is .epub, licaense file can be stored outside the .epub archive.
-        if let licenseUrl = URL(string: publication.absoluteString.replacingOccurrences(of: ".epub", with: ".lcpl")),
-            FileManager.default.fileExists(atPath: licenseUrl.path) {
-            return LCPLLicenseContainer(lcpl: licenseUrl)
-        } else {
-            return EPUBLicenseContainer(epub: publication)
-        }
+        return EPUBLicenseContainer(epub: publication)
     default:
         throw LCPError.licenseContainer(.openFailed)
     }
