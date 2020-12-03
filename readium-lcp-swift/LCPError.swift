@@ -68,8 +68,10 @@ public enum LCPError: LocalizedError {
                 case .contentDecryptError:
                     return R2LCPLocalizedString("LCPClientError.contentDecryptError")
                 case .unknown:
+                    fallthrough
+                @unknown default:
                     return R2LCPLocalizedString("LCPClientError.unknown")
-                }
+              }
             }()
             return R2LCPLocalizedString("LCPError.licenseIntegrity", description)
         case .licenseStatus(let error):
